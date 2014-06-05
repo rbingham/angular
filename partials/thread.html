@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading panel-heading-right">
+    <h1 class="panel-title">{{thread.title}}</h1><br/>
+    <p>{{thread.date}}</p>
+    <p>{{thread.content}}</p>
+  </div>
+  <div ng-if="found" class="panel-body">
+    <div class="panel panel-default" ng-repeat="post in thread.posts" >
+      <div class="panel-heading panel-heading-right">
+        <h3 class="panel-title" ng-click="aThread.collapse(post)">
+          {{post.content}}
+        </h3>
+      </div>
+      <div>
+        <div ng-repeat="comment in post.comments" collapse="post.isCollapsed">
+          <p>{{comment.content}}</p><hr />
+        </div>
+        <div  collapse="!post.respond">
+          <textarea ng-model="response" class="form-control" rows="5"></textarea>
+        </div>
+        <div>
+          <button style="float:left" collapse="!post.respond" class="btn btn-default" ng-click="aThread.submitComment(thread, post.postID, response, post.respond)" >Submit</button>
+          <button class="btn btn-default" ng-click="aThread.createComment(post)">{{post.comment}}</button>
+        </div>
+      </div>
+  </div>
+      <div collapse="!thread.answer">
+        <textarea class="form-control" rows="5" ng-model="answerContent"></textarea>
+      </div>
+      <button style="float:left" collapse="!thread.answer" class="btn btn-default" ng-click="aThread.submitPost(thread, answerContent, thread.answer)">Submit</button>
+      <button class="btn btn-default" ng-click="aThread.createPost(thread)">{{thread.postTx}}</button>
+</div>
